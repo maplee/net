@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+
+def getModuleVersion(){
+    return String.valueOf(MODULE_VERSION)
+}
+android {
+    compileSdkVersion Integer.parseInt(CompileSdkVersion)
+
+    def pkg="net"
+    def verName = getModuleVersion()
+
+    defaultConfig {
+        minSdkVersion Integer.parseInt(MinSdkVersion)
+        targetSdkVersion Integer.parseInt(TargetSdkVersion)
+        versionCode 1
+        versionName "1.0"
+        archivesBaseName = "${pkg}-${verName}"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+apply from: './push.gradle'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    compile ("com.aliyun.ams:alicloud-android-httpdns:1.2.5@aar") {
+        transitive true
+    }
+
+}

@@ -1,0 +1,35 @@
+apply plugin: 'maven'
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+artifacts {
+    archives androidSourcesJar
+}
+//任务名
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //这里的url是nexus中maven-releases的路径,可以点击copy按钮查看复制
+            repository(url: "file:///F:/maven_repo/self")
+            // library的包名
+            pom.groupId = 'com.matt.module'
+            // library的项目名
+            pom.artifactId = 'net'
+            // library的版本号
+            pom.version = MODULE_VERSION
+            pom.project {
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+}
