@@ -52,7 +52,7 @@ NetApi.init(getApplicationContext());
 // 默认域名请求
 NetApi.getApiDefault(MethodService.class).getSmsCode(request).enqueue(new InstectResponse(responseCallBack));
 // 指定域名请求
-NetApi.getApiCustom("http://check.app.32solo.com",MethodService.class).getSmsCode(request).enqueue(new InstectResponse(responseCallBack));
+NetApi.getApiCustom("http://check.app.solo.com",MethodService.class).getSmsCode(request).enqueue(new InstectResponse(responseCallBack));
 
 ```
 
